@@ -1,8 +1,8 @@
 from torch import nn
 import torch
 
-from layers.embedding import Embeddings
-from layers.encoder import Encoder
+from commonlayers.embedding import Embeddings
+from commonlayers.encoder import Encoder
 
 
 class ViTForClassfication(nn.Module):
