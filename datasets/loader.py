@@ -41,9 +41,7 @@ def load_data(name, img_size,
     ValueError
         _description_
     """
-    if not isinstance(name, str):
-        raise TypeError('Name of dataset should be str. '
-                        f'Got {type(name)} instead.')
+                
     name = name.lower()
     if name not in [
         'cifar10', 'mnist', 'places365', 'imagenet200'
@@ -82,9 +80,6 @@ def cifar10(
     train_size=None,
     test_size=None
     ):
-    # TODO
-    # parametrize: output path for torchvision.datasets.CIFAR10(root=path)
-    # why are train transforms not the same as test transforms?
 
     # Prepare train loader
     train_transform = transforms.Compose(
@@ -151,8 +146,7 @@ def mnist(
     batch_size=4, num_workers=2,
     train_size=None, test_size=None
     ):
-    # TODO
-    # parametrize: '../data'
+
     train_transform = transforms.Compose(
         [
             transforms.ToTensor(),
@@ -213,13 +207,10 @@ def places365(
     batch_size=4, num_workers=2,
     train_size=100000, test_size=25000
     ):
-    # TODO
-    # parametrize: (64, 64)
-    # parametrize: data path
+      
     train_transform = transforms.Compose(
         [
             transforms.ToTensor(),
-            # transforms.Resize((256, 256)),
             transforms.Resize(img_size), 
             transforms.RandomHorizontalFlip(p=0.5),
             transforms.RandomResizedCrop(
@@ -236,7 +227,6 @@ def places365(
 
     trainset = torchvision.datasets.Places365(
         root='./data', split='train-standard',
-        # split='val',
         small= True, transform = train_transform, download= True
     )
     
@@ -310,7 +300,6 @@ def imagenet200(img_size=(64, 64), batch_size=4, num_workers=2):
     test_transform = transforms.Compose(
         [
             transforms.ToTensor(),
-            # transforms.Resize((224, 224)),
             transforms.Resize(img_size),
             transforms.Normalize(
                 (0.4914, 0.4822, 0.4465),
