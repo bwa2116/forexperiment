@@ -11,35 +11,9 @@ import os
 def load_data(name, img_size,
               batch_size=4, num_workers=2,
               train_size=None, test_size=None):
-    """Load a dataset given its name.
-
-    Parameters
-    ----------
-    name : [str]
-        One of ['CIFAR10', 'MNIST', 'Places365', 'ImageNet200']
-
-    img_size : tuple(int)
-        (width: int, height: int), dimensions of images in the dataloader
-    batch_size : int, optional
-        _description_, by default 4
-    num_workers : int, optional
-        _description_, by default 2
-    train_size : _type_, optional
-        _description_, by default None
-    test_size : _type_, optional
-        _description_, by default None
-
-    Returns
-    -------
-    _type_
-        _description_
-
-    Raises
-    ------
-    TypeError
-        _description_
-    ValueError
-        _description_
+                
+    """
+    Load a dataset given its name.
     """
                 
     name = name.lower()
