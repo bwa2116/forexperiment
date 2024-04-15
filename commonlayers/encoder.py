@@ -8,6 +8,9 @@ class Encoder(nn.Module):
     """
 
     def __init__(self, config, performer=False, m=16):
+        # Pass the parameter m here since thi class calls on
+        # the Block class, which in turn calls on the
+        # MultiHeadAttention class
         super().__init__()
         # Create a list of transformer blocks
         self.blocks = nn.ModuleList([])
