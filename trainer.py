@@ -22,8 +22,6 @@ class Trainer:
         """
         Train the model for the specified number of epochs.
         """
-        # TODO:
-        # Better progress bar
 
         # Keep track of the losses and accuracies
         train_losses, test_losses, accuracies = [], [], []
