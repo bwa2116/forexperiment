@@ -223,7 +223,6 @@ class Block(nn.Module):
 
     def __init__(self, config, performer=False, m=16):
         super().__init__()
-        self.use_faster_attention = config.get("use_faster_attention", False)
         self.m = m
         if performer:
             self.attention = PerformerMultiHeadAttention(config, m=self.m)
