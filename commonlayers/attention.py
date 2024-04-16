@@ -45,14 +45,45 @@ class VanillaAttentionHead(nn.Module):
         attention_output = torch.matmul(attention_probs, value)
         return (attention_output, attention_probs)
 
+class PerformerReluAttentionHead(nn.Module):
+    """
+    A single attention head.
+    This module is used in the MultiHeadAttention module.
+    """
+    def __init__(self, hidden_size, attention_head_size, dropout, bias=True):
+        super().__init__()
+        self.hidden_size = hidden_size
+        self.attention_head_size = attention_head_size
+        # Create the query, key, and value projection layers
+        self.query = nn.Linear(hidden_size, attention_head_size, bias=bias)
+        self.key = nn.Linear(hidden_size, attention_head_size, bias=bias)
+        self.value = nn.Linear(hidden_size, attention_head_size, bias=bias)
 
-class VanillaMultiHeadAttention(nn.Module):
+        self.dropout = nn.Dropout(dropout)
+    
+    def forward(self, x):
+        # Project the input into query, key, and value
+        # The same input is used to generate the query, key, and value,
+        # so it's usually called self-attention.
+        # (batch_size, sequence_length, hidden_size) -> (batch_size, sequence_length, attention_head_size)
+        query = self.query(x)
+        key = self.key(x)
+        value = self.value(x)
+        
+        # Calculate the attention output
+        attention_probs = torch.matmul(torch.relu(key).transpose(-1, -2), value)
+        attention_output = torch.matmul(torch.relu(query), attention_probs)
+
+        return (attention_output, attention_probs)
+
+
+class MultiHeadAttention(nn.Module):
     """
     Multi-head attention module.
-    This module is used in the TransformerEncoder module.
+    This module is used in the Encoder module.
     """
 
-    def __init__(self, config):
+    def __init__(self, config, relu=False):
         super().__init__()
         self.hidden_size = config["hidden_size"]
         self.num_attention_heads = config["num_attention_heads"]
@@ -64,13 +95,23 @@ class VanillaMultiHeadAttention(nn.Module):
         self.qkv_bias = config["qkv_bias"]
         # Create a list of attention heads
         self.heads = nn.ModuleList([])
-        for _ in range(self.num_attention_heads):
+
+        if relu:
+            head = PerformerReluAttentionHead(
+                self.hidden_size,
+                self.attention_head_size,
+                config["attention_probs_dropout_prob"],
+                self.qkv_bias
+            )
+        else: 
             head = VanillaAttentionHead(
                 self.hidden_size,
                 self.attention_head_size,
                 config["attention_probs_dropout_prob"],
                 self.qkv_bias
             )
+        for _ in range(self.num_attention_heads):
+            head = head
             self.heads.append(head)
         # Create a linear layer to project the attention output back to the hidden size
         # In most cases, all_head_size and hidden_size are the same
@@ -97,10 +138,10 @@ class VanillaMultiHeadAttention(nn.Module):
             return (attention_output, attention_probs)
 
 
-class PerformerAttentionHead(nn.Module):
+class RandomFeaturesAttentionHead(nn.Module):
     """
     A single attention head.
-    This module is used in the PerformerMultiHeadAttention module.
+    This module is used in the RandomFeaturesAttentionHead module.
     """
 
     def __init__(
@@ -164,7 +205,7 @@ class PerformerAttentionHead(nn.Module):
         return (attention_output, attention_probs)
 
 
-class PerformerMultiHeadAttention(nn.Module):
+class RandomFeaturesMultiHeadAttention(nn.Module):
     """
     Multi-head attention module.
     This module is used in the TransformerEncoder module.
@@ -182,7 +223,7 @@ class PerformerMultiHeadAttention(nn.Module):
         # Create a list of attention heads
         self.heads = nn.ModuleList([])
         for _ in range(self.num_attention_heads):
-            head = PerformerAttentionHead(
+            head = RandomFeaturesAttentionHead(
                 self.hidden_size,
                 self.attention_head_size,
                 self.num_attention_heads,
@@ -221,13 +262,14 @@ class Block(nn.Module):
     A single transformer block.
     """
 
-    def __init__(self, config, performer=False, m=16):
+    def __init__(self, config, randomfeatures=False, m=16):
         super().__init__()
         self.m = m
-        if performer:
-            self.attention = PerformerMultiHeadAttention(config, m=self.m)
+        if randomfeatures:
+            self.attention = RandomFeaturesMultiHeadAttention(config, m=self.m)
         else:
-            self.attention = VanillaMultiHeadAttention(config)
+            self.attention = MultiHeadAttention(config)
+            
         self.layernorm_1 = nn.LayerNorm(config["hidden_size"])
         self.mlp = MLP(config)
         self.layernorm_2 = nn.LayerNorm(config["hidden_size"])
