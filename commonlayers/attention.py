@@ -34,11 +34,11 @@ class VanillaAttentionHead(nn.Module):
         attention_scores = torch.matmul(query, key.transpose(-1, -2))
         attention_scores = attention_scores / math.sqrt(self.attention_head_size)
         
-        # # softmax(Q*K.T/sqrt(head_size))*V
-        # attention_probs = nn.functional.softmax(attention_scores, dim=-1)
+        # softmax(Q*K.T/sqrt(head_size))*V
+        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
         
-        # relu(Q*K.T/sqrt(head_size))*V
-        attention_probs = nn.functional.relu(attention_scores)
+        # # relu(Q*K.T/sqrt(head_size))*V
+        # attention_probs = nn.functional.relu(attention_scores)
         
         attention_probs = self.dropout(attention_probs)
         # Calculate the attention output
