@@ -85,6 +85,7 @@ class MultiHeadAttention(nn.Module):
 
     def __init__(self, config, perfrelu=False):
         super().__init__()
+        self.perfrelu = perfrelu
         self.hidden_size = config["hidden_size"]
         self.num_attention_heads = config["num_attention_heads"]
         # The attention head size is the hidden size divided by the number 
@@ -96,7 +97,7 @@ class MultiHeadAttention(nn.Module):
         # Create a list of attention heads
         self.heads = nn.ModuleList([])
 
-        if relu:
+        if perfrelu:
             head = PerformerReluAttentionHead(
                 self.hidden_size,
                 self.attention_head_size,
