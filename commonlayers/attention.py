@@ -83,7 +83,7 @@ class MultiHeadAttention(nn.Module):
     This module is used in the Encoder module.
     """
 
-    def __init__(self, config, relu=False):
+    def __init__(self, config, perfrelu=False):
         super().__init__()
         self.hidden_size = config["hidden_size"]
         self.num_attention_heads = config["num_attention_heads"]
@@ -268,7 +268,7 @@ class Block(nn.Module):
         if randomfeatures:
             self.attention = RandomFeaturesMultiHeadAttention(config, m=self.m)
         else:
-            self.attention = MultiHeadAttention(config, relu=False)
+            self.attention = MultiHeadAttention(config, perfrelu=False)
             
         self.layernorm_1 = nn.LayerNorm(config["hidden_size"])
         self.mlp = MLP(config)
