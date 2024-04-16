@@ -268,7 +268,7 @@ class Block(nn.Module):
         if randomfeatures:
             self.attention = RandomFeaturesMultiHeadAttention(config, m=self.m)
         else:
-            self.attention = MultiHeadAttention(config)
+            self.attention = MultiHeadAttention(config, relu=False)
             
         self.layernorm_1 = nn.LayerNorm(config["hidden_size"])
         self.mlp = MLP(config)
