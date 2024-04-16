@@ -1,5 +1,5 @@
 import torch
-from utils import save_experiment, save_checkpoint
+from ViT.utils import save_experiment, save_checkpoint
 from tqdm import tqdm
 
 
