@@ -14,7 +14,7 @@ class Encoder(nn.Module):
         super().__init__()
         # Create a list of transformer blocks
         self.blocks = nn.ModuleList([])
-        self.perfrelu = pefrelu
+        self.perfrelu = perfrelu
         self.randomfeatures = randomfeatures
         self.m = m
         for _ in range(config["num_hidden_layers"]):
