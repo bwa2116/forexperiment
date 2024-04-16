@@ -7,16 +7,18 @@ class Encoder(nn.Module):
     The transformer encoder module.
     """
 
-    def __init__(self, config, perfrelu=False, randomfeatures=False, m=16):
+    def __init__(self, config, perfrelu=False, randomfeatures=False, m=1):
         # Pass the parameter m here since thi class calls on
         # the Block class, which in turn calls on the
         # MultiHeadAttention class
         super().__init__()
         # Create a list of transformer blocks
         self.blocks = nn.ModuleList([])
+        self.perfrelu = pefrelu
+        self.randomfeatures = randomfeatures
         self.m = m
         for _ in range(config["num_hidden_layers"]):
-            block = Block(config, perfrelu=False, randomfeatures=False, m=self.m)
+            block = Block(config, perfrelu=self.perfrelu, randomfeatures=self.randomfeatures, m=self.m)
             self.blocks.append(block)
 
     def forward(self, x, output_attentions=False):
