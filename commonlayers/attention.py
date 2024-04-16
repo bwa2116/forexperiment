@@ -262,13 +262,14 @@ class Block(nn.Module):
     A single transformer block.
     """
 
-    def __init__(self, config, randomfeatures=False, m=16):
+    def __init__(self, config, perfrelu=False, randomfeatures=False, m=16):
         super().__init__()
         self.m = m
+        self.perfrelu = perfrelu
         if randomfeatures:
             self.attention = RandomFeaturesMultiHeadAttention(config, m=self.m)
         else:
-            self.attention = MultiHeadAttention(config, perfrelu=False)
+            self.attention = MultiHeadAttention(config, perfrelu=self.perfrelu)
             
         self.layernorm_1 = nn.LayerNorm(config["hidden_size"])
         self.mlp = MLP(config)
