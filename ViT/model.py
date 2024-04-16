@@ -18,7 +18,7 @@ class ViTForClassfication(nn.Module):
         self.num_classes = config["num_classes"]
         # Create the embedding module
         self.embedding = Embeddings(config)
-        self.reluperf = reluperf
+        self.perfrelu = perfrelu
         self.randomfeatures = randomfeatures
         self.m = m
         # Create the transformer encoder module
