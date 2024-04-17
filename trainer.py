@@ -24,7 +24,10 @@ class Trainer:
         """
         # Keep track of the losses and accuracies
         train_losses, test_losses, accuracies = [], [], []
-        
+        # from timer import Timer
+        t = Timer()
+        t.start()
+                  
         # Train the model
         for i in range(epochs):
             print(f'Starting Epoch {i + 1} of {epochs}.')
@@ -45,10 +48,12 @@ class Trainer:
             ):
                 print('\tSave checkpoint at epoch', i+1)
                 save_checkpoint(self.exp_name, self.model, i+1)
+        
+        t.stop()
         # Save the experiment
         save_experiment(
             self.exp_name, self.config, self.model,
-            train_losses, test_losses, accuracies)
+            train_losses, test_losses, accuracies, t.stop())
 
     def step(self, trainloader):
         """
