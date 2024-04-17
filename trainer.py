@@ -24,7 +24,8 @@ class Trainer:
         """
         # Keep track of the losses and accuracies
         train_losses, test_losses, accuracies = [], [], []
-        # from timer import Timer
+        
+        from timer import Timer
         t = Timer()
         t.start()
                   
