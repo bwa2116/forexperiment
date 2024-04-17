@@ -24,6 +24,12 @@ class Trainer:
         """
         # Keep track of the losses and accuracies
         train_losses, test_losses, accuracies = [], [], []
+
+        # Create a folder in the root directory
+        !mkdir -p "/content/drive/My Drive/My Folder"
+        
+        # Write a sample file to Google Drive
+
         # Train the model
         for i in range(epochs):
             print(f'Starting Epoch {i + 1} of {epochs}.')
@@ -36,6 +42,13 @@ class Trainer:
                 f"Epoch: {i+1}, Train loss: {train_loss:.4f}, "
                 f"Test loss: {test_loss:.4f}, Accuracy: {accuracy:.4f}"
             )
+            # write to text file
+            with open(f'/content/drive/My Drive/My Folder/{exp_name}.txt', 'w') as f:
+              f.write(
+                f"Epoch: {i+1}, Train loss: {train_loss:.4f}, "
+                f"Test loss: {test_loss:.4f}, Accuracy: {accuracy:.4f}"
+              )
+                
             if (
                 save_model_every_n_epochs > 0 and 
                 (i+1) % save_model_every_n_epochs == 0 and 
