@@ -9,7 +9,8 @@ import torchvision.transforms as transforms
 from .model import ViTForClassfication
 
 
-def save_experiment(experiment_name, config, model, train_losses, test_losses, accuracies, base_dir="experiments"):
+def save_experiment(experiment_name, config, model, train_losses, test_losses,
+                    accuracies, time, base_dir="experiments"):
     outdir = os.path.join(base_dir, experiment_name)
     os.makedirs(outdir, exist_ok=True)
     
@@ -25,6 +26,7 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses, a
             'train_losses': train_losses,
             'test_losses': test_losses,
             'accuracies': accuracies,
+            'elapsed time': time
         }
         json.dump(data, f, sort_keys=True, indent=4)
     
