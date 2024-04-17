@@ -25,7 +25,7 @@ class Trainer:
         # Keep track of the losses and accuracies
         train_losses, test_losses, accuracies = [], [], []
         
-        import ViT.Timer
+        from ViT.utils import Timer
         t = Timer()
         t.start()
                   
