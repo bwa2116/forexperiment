@@ -25,8 +25,11 @@ class Trainer:
         # Keep track of the losses and accuracies
         train_losses, test_losses, accuracies = [], [], []
 
+        # Mount Google Drive
+        from google.colab import drive
+        drive.mount('/content/drive')
         # Create a folder in the root directory
-        mkdir -p "/content/drive/My Drive/My Folder"
+        !mkdir -p "/content/drive/My Drive/My Folder"
         
         # Write a sample file to Google Drive
 
