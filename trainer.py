@@ -26,7 +26,7 @@ class Trainer:
         train_losses, test_losses, accuracies = [], [], []
 
         # Create a folder in the root directory
-        !mkdir -p "/content/drive/My Drive/My Folder"
+        mkdir -p "/content/drive/My Drive/My Folder"
         
         # Write a sample file to Google Drive
 
