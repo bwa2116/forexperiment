@@ -25,12 +25,10 @@ class Trainer:
         # Keep track of the losses and accuracies
         train_losses, test_losses, accuracies = [], [], []
         
-        from ViT.utils import Timer
-                  
+        import time
+        t0 = time.time()      
         # Train the model
         for i in range(epochs):
-            t = Timer()
-            t.start()
             print(f'Starting Epoch {i + 1} of {epochs}.')
             train_loss = self.step(trainloader)
             accuracy, test_loss = self.evaluate(testloader)
@@ -50,11 +48,12 @@ class Trainer:
                 print('\tSave checkpoint at epoch', i+1)
                 save_checkpoint(self.exp_name, self.model, i+1)
         
-        t.stop()
+        t1 = time.time()
+        elapsed_time = t1-t0
         # Save the experiment
         save_experiment(
             self.exp_name, self.config, self.model,
-            train_losses, test_losses, accuracies, t.stop())
+            train_losses, test_losses, accuracies, elapsed_time)
 
     def step(self, trainloader):
         """
