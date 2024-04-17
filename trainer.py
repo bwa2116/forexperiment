@@ -26,11 +26,11 @@ class Trainer:
         train_losses, test_losses, accuracies = [], [], []
         
         from ViT.utils import Timer
-        t = Timer()
-        t.start()
                   
         # Train the model
         for i in range(epochs):
+            t = Timer()
+            t.start()
             print(f'Starting Epoch {i + 1} of {epochs}.')
             train_loss = self.step(trainloader)
             accuracy, test_loss = self.evaluate(testloader)
