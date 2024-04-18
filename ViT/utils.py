@@ -32,7 +32,8 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses,
           
     # Save the metrics to excel
 
-    # Convert the list to a DataFrame <--- edit
+    # Convert the list to a DataFrame
+    import pandas as pd  
     data = [train_losses, test_losses,
                     accuracies, elapsed_time]
     column_names = ['train_losses', 'test_losses',
