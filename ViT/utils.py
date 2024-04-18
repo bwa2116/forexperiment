@@ -19,7 +19,7 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses,
     with open(configfile, 'w') as f:
         json.dump(config, f, sort_keys=True, indent=4)
     
-    # Save the metrics
+    # Save the metrics to json
     jsonfile = os.path.join(outdir, 'metrics.json')
     with open(jsonfile, 'w') as f:
         data = {
@@ -29,10 +29,25 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses,
             'elapsed_time': elapsed_time
         }
         json.dump(data, f, sort_keys=True, indent=4)
+          
+    # Save the metrics to excel
+
+    # Convert the list to a DataFrame <--- edit
+    data = [train_losses, test_losses,
+                    accuracies, elapsed_time]
+    column_names = ['train_losses', 'test_losses',
+                    'accuracies', 'elapsed_time']
     
+    df = pd.DataFrame(data, columns=column_names) 
+    
+    # Specify Excel file name 
+    excel_file = os.path.join(outdir, 'epoch_metrics.xlsx')
+    
+    # Write DataFrame to Excel 
+    df.to_excel(excel_file, index=False) 
+        
     # Save the model
     save_checkpoint(experiment_name, model, "final", base_dir=base_dir)
-
 
 def save_checkpoint(experiment_name, model, epoch, base_dir="experiments"):
     outdir = os.path.join(base_dir, experiment_name)
