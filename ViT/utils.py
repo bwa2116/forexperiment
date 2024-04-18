@@ -33,19 +33,19 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses,
     # Save the metrics to excel
     print(train_losses, test_losses, test_losses)
     # Convert the list to a DataFrame
-    # import pandas as pd  
-    # data = [train_losses, test_losses,
-    #                 accuracies, elapsed_time]
-    # column_names = ['train_losses', 'test_losses',
-    #                 'accuracies', 'elapsed_time']
+    import pandas as pd  
+    data = [train_losses, test_losses,
+                    accuracies, [elapsed_time]]
+    column_names = ['train_losses', 'test_losses',
+                    'accuracies', 'elapsed_time']
     
-    # df = pd.DataFrame(data, columns=column_names) 
+    df = pd.DataFrame(data, columns=column_names) 
     
-    # # Specify Excel file name 
-    # excel_file = os.path.join(outdir, 'epoch_metrics.xlsx')
+    # Specify Excel file name 
+    excel_file = os.path.join(outdir, 'epoch_metrics.xlsx')
     
-    # # Write DataFrame to Excel 
-    # df.to_excel(excel_file, index=False) 
+    # Write DataFrame to Excel 
+    df.to_excel(excel_file, index=False) 
         
     # Save the model
     save_checkpoint(experiment_name, model, "final", base_dir=base_dir)
