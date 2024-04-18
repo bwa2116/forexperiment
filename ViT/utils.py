@@ -34,13 +34,7 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses,
     print(train_losses, test_losses, test_losses)
     # Convert the list to a DataFrame
     import pandas as pd  
-    data = [train_losses, test_losses,
-                    accuracies]
-    print(data)  
-    column_names = ['train_losses', 'test_losses',
-                    'accuracies']
-    
-    df = pd.DataFrame(data, columns=column_names) 
+    df = pd.DataFrame(data) 
     
     # Specify Excel file name 
     excel_file = os.path.join(outdir, 'epoch_metrics.xlsx')
