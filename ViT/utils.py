@@ -36,6 +36,7 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses,
     import pandas as pd  
     data = [train_losses, test_losses,
                     accuracies]
+    print(data)  
     column_names = ['train_losses', 'test_losses',
                     'accuracies']
     
