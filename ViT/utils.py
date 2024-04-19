@@ -26,7 +26,7 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses,
             'train_losses': train_losses,
             'test_losses': test_losses,
             'accuracies': accuracies,
-            'train_times': train_times
+            'train_times': train_times,
             'inference_times': inference_times
         }
         json.dump(data, f, sort_keys=True, indent=4)
