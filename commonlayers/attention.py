@@ -96,22 +96,21 @@ class MultiHeadAttention(nn.Module):
         self.qkv_bias = config["qkv_bias"]
         # Create a list of attention heads
         self.heads = nn.ModuleList([])
-
-        if perfrelu:
-            head = PerformerReluAttentionHead(
-                self.hidden_size,
-                self.attention_head_size,
-                config["attention_probs_dropout_prob"],
-                self.qkv_bias
-            )
-        else: 
-            head = VanillaAttentionHead(
-                self.hidden_size,
-                self.attention_head_size,
-                config["attention_probs_dropout_prob"],
-                self.qkv_bias
-            )
         for _ in range(self.num_attention_heads):
+            if perfrelu:
+                head = PerformerReluAttentionHead(
+                    self.hidden_size,
+                    self.attention_head_size,
+                    config["attention_probs_dropout_prob"],
+                    self.qkv_bias
+                )
+            else: 
+                head = VanillaAttentionHead(
+                    self.hidden_size,
+                    self.attention_head_size,
+                    config["attention_probs_dropout_prob"],
+                    self.qkv_bias
+                )
             head = head
             self.heads.append(head)
         # Create a linear layer to project the attention output back to the hidden size
