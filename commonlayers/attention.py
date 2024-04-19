@@ -111,7 +111,6 @@ class MultiHeadAttention(nn.Module):
                     config["attention_probs_dropout_prob"],
                     self.qkv_bias
                 )
-            head = head
             self.heads.append(head)
         # Create a linear layer to project the attention output back to the hidden size
         # In most cases, all_head_size and hidden_size are the same
