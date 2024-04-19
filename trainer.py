@@ -51,8 +51,9 @@ class Trainer:
             t1 = time.time()
             print(t1-t0)
             elapsed_time = elapsed_time.append(t1-t0)
+            print(f'elapsed time before for loop {elapsed_time}')
         # Save the experiment
-        print(elapsed_time)
+        print(f'elapsed time after for loop {elapsed_time}')
         save_experiment(
             self.exp_name, self.config, self.model,
             train_losses, test_losses, accuracies, elapsed_time)
