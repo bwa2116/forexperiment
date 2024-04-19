@@ -35,6 +35,11 @@ class Trainer:
             train_losses.append(train_loss)
             test_losses.append(test_loss)
             accuracies.append(accuracy)
+            t1 = time.time()
+            print(t1-t0)
+            elapsed_time = elapsed_time.append(t1-t0)
+            print(f'elapsed time before for loop {elapsed_time}')
+            
             print(
                 f"Epoch: {i+1}, Train loss: {train_loss:.4f}, "
                 f"Test loss: {test_loss:.4f}, Accuracy: {accuracy:.4f}"
@@ -48,10 +53,6 @@ class Trainer:
                 print('\tSave checkpoint at epoch', i+1)
                 save_checkpoint(self.exp_name, self.model, i+1)
         
-            t1 = time.time()
-            print(t1-t0)
-            elapsed_time = elapsed_time.append(t1-t0)
-            print(f'elapsed time before for loop {elapsed_time}')
         # Save the experiment
         print(f'elapsed time after for loop {elapsed_time}')
         save_experiment(
