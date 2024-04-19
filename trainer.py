@@ -23,12 +23,12 @@ class Trainer:
         Train the model for the specified number of epochs.
         """
         # Keep track of the losses and accuracies
-        train_losses, test_losses, accuracies = [], [], []
+        train_losses, test_losses, accuracies, elapsed_time = [], [], [], []
         
-        import time
-        t0 = time.time()      
+        import time   
         # Train the model
         for i in range(epochs):
+            t0 = time.time()   
             print(f'Starting Epoch {i + 1} of {epochs}.')
             train_loss = self.step(trainloader)
             accuracy, test_loss = self.evaluate(testloader)
@@ -48,8 +48,8 @@ class Trainer:
                 print('\tSave checkpoint at epoch', i+1)
                 save_checkpoint(self.exp_name, self.model, i+1)
         
-        t1 = time.time()
-        elapsed_time = t1-t0
+            t1 = time.time()
+            elapsed_time = elapsed_time.append(t1-t0)
         # Save the experiment
         save_experiment(
             self.exp_name, self.config, self.model,
