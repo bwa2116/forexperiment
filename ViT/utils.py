@@ -30,18 +30,6 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses,
         }
         json.dump(data, f, sort_keys=True, indent=4)
           
-    # Save the metrics to excel
-    # Convert the list to a DataFrame
-    import pandas as pd  
-    df = pd.DataFrame(data) 
-    
-    # Specify Excel file name 
-    excel_file = os.path.join(outdir, 'epoch_metrics.xlsx')
-    
-    # Write DataFrame to Excel 
-    df.to_excel(excel_file, index=False) 
-        
-    # Save the model
     save_checkpoint(experiment_name, model, "final", base_dir=base_dir)
 
 def save_checkpoint(experiment_name, model, epoch, base_dir="experiments"):
