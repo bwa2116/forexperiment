@@ -49,7 +49,8 @@ class Trainer:
                 save_checkpoint(self.exp_name, self.model, i+1)
         
             t1 = time.time()
-            elapsed_time = elapsed_time.append(t1-t0)
+            delta_t = t1-t0
+            elapsed_time = elapsed_time.append(delta_t)
         # Save the experiment
         save_experiment(
             self.exp_name, self.config, self.model,
