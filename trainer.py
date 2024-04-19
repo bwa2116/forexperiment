@@ -23,7 +23,7 @@ class Trainer:
         Train the model for the specified number of epochs.
         """
         # Keep track of the losses and accuracies
-        train_losses, test_losses, accuracies, elapsed_time = [], [], [], []
+        train_losses, test_losses, accuracies, elapsed_time = [], [], [], [1]
         
         import time   
         # Train the model
