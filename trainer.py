@@ -50,6 +50,7 @@ class Trainer:
         
             t1 = time.time()
             delta_t = t1-t0
+            print(delta_t)
             elapsed_time = elapsed_time.append(delta_t)
         # Save the experiment
         save_experiment(
