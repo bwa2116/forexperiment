@@ -10,7 +10,7 @@ from .model import ViTForClassfication
 
       
 def save_experiment(experiment_name, config, model, train_losses, test_losses,
-                    accuracies, elapsed_time, base_dir="experiments"):
+                    accuracies, train_times, inference_times, base_dir="experiments"):
     outdir = os.path.join(base_dir, experiment_name)
     os.makedirs(outdir, exist_ok=True)
     
@@ -26,7 +26,8 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses,
             'train_losses': train_losses,
             'test_losses': test_losses,
             'accuracies': accuracies,
-            'elapsed_time': elapsed_time
+            'train_times': train_times
+            'inference_times': inference_times
         }
         json.dump(data, f, sort_keys=True, indent=4)
           
