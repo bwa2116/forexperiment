@@ -36,8 +36,6 @@ class Trainer:
             accuracies.append(accuracy)
             inference_times.append(inference_time)
             
-            print(f'elapsed time before for loop {elapsed_time}')
-            
             print(
                 f"Epoch: {i+1}, Train loss: {train_loss:.4f}, "
                 f"Test loss: {test_loss:.4f}, Accuracy: {accuracy:.4f}"
