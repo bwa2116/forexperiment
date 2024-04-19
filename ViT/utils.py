@@ -31,7 +31,6 @@ def save_experiment(experiment_name, config, model, train_losses, test_losses,
         json.dump(data, f, sort_keys=True, indent=4)
           
     # Save the metrics to excel
-    print(train_losses, test_losses, test_losses)
     # Convert the list to a DataFrame
     import pandas as pd  
     df = pd.DataFrame(data) 
