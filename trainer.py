@@ -1,7 +1,7 @@
 import torch
 from ViT.utils import save_experiment, save_checkpoint
 from tqdm import tqdm
-
+import time
 
 class Trainer:
     """
@@ -23,21 +23,19 @@ class Trainer:
         Train the model for the specified number of epochs.
         """
         # Keep track of the losses and accuracies
-        train_losses, test_losses, accuracies, elapsed_time = [], [], [], [1]
+        train_losses, test_losses, accuracies, train_times, inference_times = [], [], [], [], []
         
-        import time   
         # Train the model
-        for i in range(epochs):
-            t0 = time.time()   
+        for i in range(epochs): 
             print(f'Starting Epoch {i + 1} of {epochs}.')
-            train_loss = self.step(trainloader)
-            accuracy, test_loss = self.evaluate(testloader)
+            train_loss, train_time = self.step(trainloader)
+            accuracy, test_loss, inference_time = self.evaluate(testloader)
             train_losses.append(train_loss)
+            train_times.append(train_time)
             test_losses.append(test_loss)
             accuracies.append(accuracy)
-            t1 = time.time()
-            print(t1-t0)
-            elapsed_time = elapsed_time.append(t1-t0)
+            inference_times.append(inference_time)
+            
             print(f'elapsed time before for loop {elapsed_time}')
             
             print(
@@ -54,10 +52,11 @@ class Trainer:
                 save_checkpoint(self.exp_name, self.model, i+1)
         
         # Save the experiment
-        print(f'elapsed time after for loop {elapsed_time}')
+
         save_experiment(
             self.exp_name, self.config, self.model,
-            train_losses, test_losses, accuracies, elapsed_time)
+            train_losses, test_losses, accuracies, 
+            train_times, inference_times)
 
     def step(self, trainloader):
         """
@@ -65,7 +64,7 @@ class Trainer:
         """
         self.model.train()
         total_loss = 0
-
+        t0 = time.time()
         for batch in tqdm(trainloader, unit="batch", total=len(trainloader)):
             # Move the batch to the device
             batch = [t.to(self.device) for t in batch]
@@ -79,13 +78,16 @@ class Trainer:
             # Update the model's parameters
             self.optimizer.step()
             total_loss += loss.item() * len(images)
-        return total_loss / len(trainloader.dataset)
+        t1 = time.time()
+        train_time = t1 - t0
+        return total_loss / len(trainloader.dataset), train_time
 
     @torch.no_grad()
     def evaluate(self, testloader):
         self.model.eval()
         total_loss = 0
         correct = 0
+        t0 = time.time()
         with torch.no_grad():
             for batch in testloader:
                 # Move the batch to the device
@@ -102,6 +104,8 @@ class Trainer:
                 # Calculate the accuracy
                 predictions = torch.argmax(logits, dim=1)
                 correct += torch.sum(predictions == labels).item()
+        t1 = time.time()
         accuracy = correct / len(testloader.dataset)
         avg_loss = total_loss / len(testloader.dataset)
-        return accuracy, avg_loss
+        inference_time = t1 - t0
+        return accuracy, avg_loss, inference_time
