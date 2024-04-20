@@ -15,32 +15,26 @@ def load_data(name, img_size,
     """
     Load a dataset given its name.
     """
-                
-    name = name.lower()
-    if name not in [
-        'cifar10', 'mnist', 'places365', 'imagenet200'
-    ]:
-        raise ValueError(f'Unsupported dataset: {name}')
 
-    if name == 'cifar10':
+    if name == 'CIFAR10':
         return cifar10(
             img_size=img_size,
             batch_size=batch_size, num_workers=num_workers,
             train_size=train_size, test_size=test_size
         )
-    elif name == 'mnist':
+    elif name == 'MNIST':
         return mnist(
             img_size=img_size,
             batch_size=batch_size, num_workers=num_workers,
             train_size=train_size, test_size=test_size
         )
-    elif name == 'places365':
+    elif name == 'Places365':
         return places365(
             img_size=img_size,
             batch_size=batch_size, num_workers=num_workers,
             train_size=train_size, test_size=test_size
         )
-    elif name == 'imagenet200':
+    elif name == 'ImageNet200':
         return imagenet200(
             img_size=img_size,
             batch_size=batch_size, num_workers=num_workers
