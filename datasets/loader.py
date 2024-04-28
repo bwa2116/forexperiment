@@ -173,7 +173,7 @@ def mnist(
 def places365(
     img_size=(64, 64),
     batch_size=4, num_workers=2,
-    train_size=60000, test_size=15000
+    train_size=100000, test_size=25000
     ):
       
     train_transform = transforms.Compose(
