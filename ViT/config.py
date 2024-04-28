@@ -62,10 +62,10 @@ Places365 = {
 ImageNet200 = {
     "name": "ImageNet200",
     "patch_size": patch_size,
-    "hidden_size": 48,
+    "hidden_size": 192,
     "num_hidden_layers": num_hidden_layers,
     "num_attention_heads": num_attention_heads,
-    "intermediate_size": 4 * 48,
+    "intermediate_size": 4 * 192,
     "hidden_dropout_prob": hidden_dropout_prob,
     "attention_probs_dropout_prob": attention_probs_dropout_prob,
     "initializer_range": initializer_range,
