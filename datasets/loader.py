@@ -3,8 +3,8 @@ import torchvision
 import torchvision.transforms as transforms
 
 from .places365classes import places365_classes
-# from .tiny_img import download_tinyImg200
-from .tiny_image import ImageNetDataset
+from .tiny_img import download_tinyImg200
+# from .tiny_image import ImageNetDataset
 
 import os
 
@@ -242,56 +242,56 @@ def places365(
 
 def imagenet200(img_size=(64, 64), batch_size=4, num_workers=2):
 
-    # if not os.path.exists('./tiny-imagenet-200/'):
-    #     download_tinyImg200('.')
+    if not os.path.exists('./tiny-imagenet-200/'):
+        download_tinyImg200('.')
 
-    # train_transform = transforms.Compose(
-    #     [
-    #         transforms.ToTensor(),
-    #         transforms.Resize(img_size), 
-    #         transforms.RandomHorizontalFlip(p=0.5),
-    #         transforms.RandomResizedCrop(
-    #             img_size,
-    #             scale=(0.8, 1.0),
-    #             ratio=(0.75, 1.3333333333333333),
-    #             interpolation=2),
-    #         transforms.Normalize(
-    #             (0.5, 0.5, 0.5),
-    #             (0.2, 0.2, 0.2)
-    #         )
-    #     ]
-    # )
+    train_transform = transforms.Compose(
+        [
+            transforms.ToTensor(),
+            transforms.Resize(img_size), 
+            transforms.RandomHorizontalFlip(p=0.5),
+            transforms.RandomResizedCrop(
+                img_size,
+                scale=(0.8, 1.0),
+                ratio=(0.75, 1.3333333333333333),
+                interpolation=2),
+            transforms.Normalize(
+                (0.5, 0.5, 0.5),
+                (0.2, 0.2, 0.2)
+            )
+        ]
+    )
             
-    # train_dataset = torchvision.datasets.ImageFolder(
-    #     'tiny-imagenet-200/train', transform=train_transform
-    # )
+    train_dataset = torchvision.datasets.ImageFolder(
+        'tiny-imagenet-200/train', transform=train_transform
+    )
 
-    # test_transform = transforms.Compose(
-    #     [
-    #         transforms.ToTensor(),
-    #         transforms.Resize(img_size),
-    #         transforms.Normalize(
-    #             (0.5, 0.5, 0.5),
-    #             (0.2, 0.2, 0.2)
-    #         )
-    #     ]
-    # )
+    test_transform = transforms.Compose(
+        [
+            transforms.ToTensor(),
+            transforms.Resize(img_size),
+            transforms.Normalize(
+                (0.5, 0.5, 0.5),
+                (0.2, 0.2, 0.2)
+            )
+        ]
+    )
     
-    # test_dataset = torchvision.datasets.ImageFolder(
-    #     'tiny-imagenet-200/val', transform=test_transform
-    # )
+    test_dataset = torchvision.datasets.ImageFolder(
+        'tiny-imagenet-200/val', transform=test_transform
+    )
 
-    # trainloader = torch.utils.data.DataLoader(
-    #     train_dataset, batch_size=batch_size,
-    #     shuffle=True, num_workers=num_workers
-    # )
+    trainloader = torch.utils.data.DataLoader(
+        train_dataset, batch_size=batch_size,
+        shuffle=True, num_workers=num_workers
+    )
 
-    # testloader = torch.utils.data.DataLoader(
-    #     test_dataset, batch_size=batch_size,
-    #     shuffle=True, num_workers=num_workers
-    # )
-    train_dataset = load_train_data(img_size, magnitude=0.1, batch_size)
-    test_dataset = load_val_data(img_size, batch_size)
+    testloader = torch.utils.data.DataLoader(
+        test_dataset, batch_size=batch_size,
+        shuffle=True, num_workers=num_workers
+    )
+    # train_dataset = load_train_data(img_size, magnitude=0.1, batch_size)
+    # test_dataset = load_val_data(img_size, batch_size)
     classes = list(range(0, 200))
     
     return trainloader, testloader, classes
