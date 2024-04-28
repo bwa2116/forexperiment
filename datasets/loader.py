@@ -4,7 +4,7 @@ import torchvision.transforms as transforms
 
 from .places365classes import places365_classes
 # from .tiny_img import download_tinyImg200
-from .tiny_img_test_new import ImageNetDataset
+from .tiny_image import ImageNetDataset
 
 import os
 
