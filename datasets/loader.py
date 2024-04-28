@@ -249,14 +249,14 @@ def imagenet200(img_size=(64, 64), batch_size=4, num_workers=2):
             transforms.ToTensor(),
             transforms.Resize(img_size), 
             transforms.RandomHorizontalFlip(p=0.5),
-            # transforms.RandomResizedCrop(
-            #     img_size,
-            #     scale=(0.8, 1.0),
-            #     ratio=(0.75, 1.3333333333333333),
-            #     interpolation=2),
+            transforms.RandomResizedCrop(
+                img_size,
+                scale=(0.8, 1.0),
+                ratio=(0.75, 1.3333333333333333),
+                interpolation=2),
             transforms.Normalize(
-                (0.4914, 0.4822, 0.4465),
-                (0.2023, 0.1994, 0.2010)
+                (0.5, 0.5, 0.5),
+                (0.2, 0.2, 0.2)
             )
         ]
     )
@@ -270,8 +270,8 @@ def imagenet200(img_size=(64, 64), batch_size=4, num_workers=2):
             transforms.ToTensor(),
             transforms.Resize(img_size),
             transforms.Normalize(
-                (0.4914, 0.4822, 0.4465),
-                (0.2023, 0.1994, 0.2010)
+                (0.5, 0.5, 0.5),
+                (0.2, 0.2, 0.2)
             )
         ]
     )
