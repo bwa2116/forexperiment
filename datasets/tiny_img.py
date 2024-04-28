@@ -41,7 +41,7 @@ def read_folder(folder_path):
     list_of_pics = [Image.open(os.path.join(folder_path, filename)).getdata() for filename in os.listdir(folder_path) if np.array(Image.open(os.path.join(folder_path, filename)).getdata()).shape == (4096, 3)]
     return np.array(list_of_pics).reshape(np.array(list_of_pics).shape[0], 3, 64, 64)
 
-def load_tiny_image(data_path=".", channels_last=False, test_size=0.3, random_state=1337):
+def load_tiny_image(data_path=".", channels_last=False, test_size=0.2, random_state=1337):
     data_path = '.'
     full_data_path = os.path.join(data_path, "tiny-imagenet-200/")
     
@@ -69,13 +69,13 @@ def load_tiny_image(data_path=".", channels_last=False, test_size=0.3, random_st
                                                    test_size=test_size,
                                                    random_state=random_state)
     
-    X_test, X_val, y_test, y_val = train_test_split(X_test, y_test,
-                                                   test_size=test_size,
-                                                   random_state=random_state)
+    # X_test, X_val, y_test, y_val = train_test_split(X_test, y_test,
+    #                                                test_size=test_size,
+    #                                                random_state=random_state)
     
-    print ("shapes: ", X_train.shape, y_train.shape, X_test.shape, y_test.shape, X_val.shape, y_val.shape )
+    # print ("shapes: ", X_train.shape, y_train.shape, X_test.shape, y_test.shape, X_val.shape, y_val.shape )
 
-    return X_train,y_train,X_val,y_val,X_test,y_test
+    return X_train,y_train,X_val,y_val
 
 
 def look_at_class(data, labels):
