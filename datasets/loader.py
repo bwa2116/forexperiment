@@ -4,7 +4,6 @@ import torchvision.transforms as transforms
 
 from .places365classes import places365_classes
 from .tiny_img import download_tinyImg200
-# from .tiny_image import ImageNetDataset
 
 import os
 
@@ -290,8 +289,8 @@ def imagenet200(img_size=(64, 64), batch_size=4, num_workers=2):
         test_dataset, batch_size=batch_size,
         shuffle=True, num_workers=num_workers
     )
-    # train_dataset = load_train_data(img_size, magnitude=0.1, batch_size)
-    # test_dataset = load_val_data(img_size, batch_size)
+
+  
     classes = list(range(0, 200))
     
     return trainloader, testloader, classes
