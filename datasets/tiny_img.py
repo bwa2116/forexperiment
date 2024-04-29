@@ -1,4 +1,4 @@
-#This is copied from https://raw.githubusercontent.com/yandexdataschool/Practical_DL/spring2019/week03_convnets/tiny_img.py
+#This is adapted from https://raw.githubusercontent.com/yandexdataschool/Practical_DL/spring2019/week03_convnets/tiny_img.py
 
 import numpy as np
 from sklearn.model_selection import train_test_split
