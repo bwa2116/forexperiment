@@ -69,12 +69,6 @@ def load_tiny_image(data_path=".", channels_last=False, test_size=0.2, random_st
                                                    test_size=test_size,
                                                    random_state=random_state)
     
-    # X_test, X_val, y_test, y_val = train_test_split(X_test, y_test,
-    #                                                test_size=test_size,
-    #                                                random_state=random_state)
-    
-    # print ("shapes: ", X_train.shape, y_train.shape, X_test.shape, y_test.shape, X_val.shape, y_val.shape )
-
     return X_train,y_train,X_val,y_val
 
 
